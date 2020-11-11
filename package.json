@@ -1,0 +1,31 @@
+{
+  "name": "natasha-backend",
+  "version": "1.0.0",
+  "description": "Clean backend for RERBs fast updates",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "api",
+    "json"
+  ],
+  "author": "BHarat Nagandla",
+  "license": "ISC",
+  "dependencies": {
+    "ape-cricket": "^1.1.7",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.7.14",
+    "mstranslator": "^3.0.0",
+    "node-fetch": "^2.6.1",
+    "react-native-axios": "^0.17.1",
+    "rss-to-json": "^1.1.1",
+    "socket.io": "^2.3.0",
+    "twitter": "^1.7.1",
+    "xml2json": "^0.12.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
+}

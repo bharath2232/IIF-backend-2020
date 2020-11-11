@@ -1,0 +1,20 @@
+{
+  "statusCode": 200,
+  "message": "Live cricket score",
+  "data": {
+    "stat": "Thunder Wmn won by 24 runs",
+    "score": "Perth Scorchers Women 120/10 * v Sydney Thunder Women 144/4 ",
+    "description": "Perth Scorchers Women 120/10 * v Sydney Thunder Women 144/4 ",
+    "matchStarted": true,
+    "team-1": "Perth Scorchers Women",
+    "team-2": "Sydney Thunder Women",
+    "v": "1",
+    "ttl": 7,
+    "provider": {
+      "source": "Various",
+      "url": "https://cricapi.com/",
+      "pubDate": "2020-11-04T21:06:12.846Z"
+    },
+    "creditsLeft": 250
+  }
+}
