@@ -97,14 +97,19 @@ module.exports = async (app, io) => {
       `https://www.newindianexpress.com/Nation/rssfeed/?id=170&v=${Date.now()}`,
       function (err, rss) {
         rss.items.length = 5;
-        res.send(rss);
+        let finalItem = [];
+        rss.items.forEach((item, index) => {
+          const found = item.story.match(/coivd|COVID/g);
+          if (!found) {
+            finalItem.push(item);
+          }
+        });
+        res.send(finalItem);
       },
     );
   });
   app.post("/newsregion", async (req, res) => {
-    console.log("statew", req.body.data.state);
     const state = "AP";
-    console.warn("sasas", findCity(req.body.data.state));
     Feed.load(
       findCity(req.body.data.state)
         ? findCity(req.body.data.state)
@@ -112,7 +117,14 @@ module.exports = async (app, io) => {
       function (err, rss) {
         //console.log("hulala", JSON.stringify(rss, null, 3));
         rss.items.length = 4;
-        res.send(rss);
+        let finalItem = [];
+        rss.items.forEach((item, index) => {
+          const found = item.story.match(/coivd|COVID|COVID-19|Covid-19/g);
+          if (!found) {
+            finalItem.push(item);
+          }
+        });
+        res.send(finalItem);
       },
     );
   });
@@ -121,7 +133,6 @@ module.exports = async (app, io) => {
     fetch("https://nbharat.com/cricket.json")
       .then((res) => res.json())
       .then((body) => {
-        console.log("body", body);
         apecricket.cricketScore(api_key, body.matchId, function (response) {
           // response will be json data of upcoming cricket matches
           //console.log("heavy", response);
