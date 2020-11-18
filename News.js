@@ -99,7 +99,7 @@ module.exports = async (app, io) => {
         rss.items.length = 5;
         let finalItem = [];
         rss.items.forEach((item, index) => {
-          const found = item.story.match(/coivd|COVID/g);
+          const found = item.story.match(/coivd|COVID|COVID-19|Covid-19/g);
           if (!found) {
             finalItem.push(item);
           }
@@ -168,8 +168,15 @@ module.exports = async (app, io) => {
         exclude_replies: true,
       },
       (error, tweets, response) => {
-        //console.log("tweets", tweets);
-        res.send(tweets);
+        console.log("tweets", tweets);
+        let finalItem = [];
+        tweets.forEach((item, index) => {
+          const found = item.full_text.match(/coivd|COVID|COVID-19|Covid-19/g);
+          if (!found) {
+            finalItem.push(item);
+          }
+        });
+        res.send(finalItem);
       },
     );
   });
