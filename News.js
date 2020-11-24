@@ -96,14 +96,17 @@ module.exports = async (app, io) => {
     Feed.load(
       `https://www.newindianexpress.com/Nation/rssfeed/?id=170&v=${Date.now()}`,
       function (err, rss) {
-        rss.items.length = 5;
         let finalItem = [];
         rss.items.forEach((item, index) => {
-          const found = item.story.match(/coivd|COVID|COVID-19|Covid-19/g);
+          const found = item.story.match(
+            /coivd|COVID|COVID-19|Covid-19|coronavirus/g,
+          );
           if (!found) {
             finalItem.push(item);
           }
         });
+        finalItem.length = 5;
+
         res.send(finalItem);
       },
     );
