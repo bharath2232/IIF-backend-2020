@@ -5,6 +5,8 @@ const fetch = require("node-fetch");
 const Twitter = require("twitter");
 const parser = require("xml2json");
 
+global.Headers = fetch.Headers;
+
 var client = new Twitter({
   consumer_key: "9MzzQgdcQWmRckmseqkXZg4uZ",
   consumer_secret: "2ABcRhCAFHxmjTOKeUrtlcmnKdM3YQmPKyGwqjxHE3X1lcKenK",
@@ -92,6 +94,55 @@ module.exports = async (app, io) => {
       res.send(JSON.stringify(rss, null, 3));
     });
   });
+
+  app.post("/notification", async (req, res) => {
+    console.log(req.body); // Call your action on the request here
+
+    var myHeaders = new Headers();
+    myHeaders.append(
+      "Authorization",
+      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmYWEwMmE3YWU0ZmIyODAwMzNlOTcxZCIsImlhdCI6MTYwNTIwNDM0NywiZXhwIjoxNjA3Nzk2MzQ3fQ.-qRWiihWhfI8nlmyMlKCh4Q31tbfEf40R5jM2umsr54",
+    );
+
+    var requestOptions = {
+      method: "GET",
+      headers: myHeaders,
+      redirect: "follow",
+    };
+
+    fetch(
+      `http://localhost:1337/users?codePostal=${req.body.entry.codePostal}`,
+      requestOptions,
+    )
+      .then((response) => response.json())
+      .then((result) => {
+        console.log("what?", req.body.model);
+        if (
+          req.body.model == "asknow" &&
+          req.body.event == "entry.create" &&
+          req.body.entry.codePostal
+        ) {
+          console.log("hiny?", result.model);
+          result.forEach((item, index) => {
+            fetch("https://exp.host/--/api/v2/push/send", {
+              body: JSON.stringify({
+                to: item.expoId,
+                title: "Nearby Indian asked a question",
+                body: req.body.entry.title,
+              }),
+              headers: {
+                "Content-Type": "application/json",
+              },
+              method: "POST",
+            });
+          });
+        }
+      })
+      .catch((error) => console.log("error", error));
+
+    res.status(200).end(); // Responding is important
+  });
+
   app.get("/newsindia", async (req, res) => {
     Feed.load(
       `https://www.newindianexpress.com/Nation/rssfeed/?id=170&v=${Date.now()}`,
@@ -157,7 +208,8 @@ module.exports = async (app, io) => {
       });
   });
   app.get("/embassytweets", async (req, res) => {
-    client.get(
+    {
+      /*client.get(
       "statuses/user_timeline",
       {
         user_id: 1409687894,
@@ -181,6 +233,7 @@ module.exports = async (app, io) => {
         });
         res.send(finalItem);
       },
-    );
+    ); */
+    }
   });
 };
