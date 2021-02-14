@@ -53,7 +53,7 @@ module.exports = (app, io) => {
   });
   app.get("/", async (req, res) => {
     res.send(
-      "Highly Secure Apis V1.1 DEV CI testing this freak ss Developed by Bharat Nagandla, For any support please email me@bharath.fr",
+      "Highly Secure Apis V1.1 DEVELOPMENT MODE Developed by Bharat Nagandla, For any support please email me@bharath.fr",
     );
   });
   app.get("/users", async (req, res) => {
