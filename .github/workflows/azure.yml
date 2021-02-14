@@ -16,9 +16,9 @@ jobs:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
-        port: ${{ secrets.SSH_PORT }}
+        port: ${{ secrets.PORT }}
         script: |
-          cd ~/node-github-demo
+          cd ~/IIF-backend-2020
           git pull origin master
           npm install --production
-          pm2 restart node-app
+          pm2 restart index.js
