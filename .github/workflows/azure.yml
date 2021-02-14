@@ -3,7 +3,7 @@ name: Node Github CI
 on:
   push:
     branches:
-      - main
+      - dev
 
 jobs:
   deploy:
@@ -18,7 +18,7 @@ jobs:
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
         script: |
-          cd ~/IIF-backend-2020
-          git pull origin main
+          cd ~/iif-dev/IIF-backend-2020/
+          git pull origin dev
           npm install --production
           pm2 restart index.js
