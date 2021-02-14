@@ -19,6 +19,6 @@ jobs:
         port: ${{ secrets.PORT }}
         script: |
           cd ~/IIF-backend-2020
-          git pull origin master
+          git pull origin main
           npm install --production
           pm2 restart index.js
